@@ -14,7 +14,7 @@ RUN apk --update add \
     rm -rf /var/cache/apk/*
 
 # Add user and group
-RUN adduser -S -G www-data -g "PHP-FPM Server" -h "/www" php-srv
+RUN adduser -S -G www-data -g "PHP-FPM Server" -h "/var/lib/www" php-srv
 
 # Add configuration
 ADD files/php-fpm.conf /etc/php/php-fpm.conf
