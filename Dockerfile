@@ -1,4 +1,4 @@
-FROM alpine:edge
+FROM mitcdh/alpine-hiawatha
 MAINTAINER Mitchell Hewes <me@mitcdh.com>
 
 RUN apk --update add \
@@ -8,26 +8,18 @@ RUN apk --update add \
     php-xml \
     php-phar \
     php-intl \
+    php-dom \
     php-openssl \
-    ca-certificates \
-    curl \
-    git && \
-    apk add hiawatha  --update-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ --allow-untrusted && \
+    ca-certificates && \
     rm -rf /var/cache/apk/*
 
-# Install composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
 # Add user and group
-RUN addgroup -S www-data && \
-    adduser -S -G www-data -g "PHP-FPM Server" -h "/www" php-srv && \
-    adduser -S -G www-data -g "Web Server" -h "/var/lib/www" web-srv
+RUN adduser -S -G www-data -g "PHP-FPM Server" -h "/www" php-srv
 
 # Add configuration
-ADD files/hiawatha.conf /etc/hiawatha/hiawatha.conf
 ADD files/php-fpm.conf /etc/php/php-fpm.conf
-ADD files/run.sh /scripts/run.sh
-RUN chmod -R 700 /scripts/
+ADD files/php-fpm.sh /scripts/pre-run/01_php-fpm
+ADD files/hiawatha-php.conf /etc/hiawatha/conf.d/php.conf
 
 EXPOSE 80
 
