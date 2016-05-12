@@ -2,14 +2,14 @@ FROM mitcdh/alpine-hiawatha
 MAINTAINER Mitchell Hewes <me@mitcdh.com>
 
 RUN apk --update add \
-    php-fpm \
-    php-curl \
-    php-json \
-    php-xml \
-    php-phar \
-    php-intl \
-    php-dom \
-    php-openssl \
+    php5-fpm \
+    php5-curl \
+    php5-json \
+    php5-xml \
+    php5-phar \
+    php5-intl \
+    php5-dom \
+    php5-openssl \
     ca-certificates && \
     rm -rf /var/cache/apk/*
 
