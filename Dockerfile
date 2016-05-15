@@ -17,7 +17,7 @@ RUN apk --update add \
 RUN adduser -S -G www-data -g "PHP-FPM Server" -h "/var/lib/www" php-srv
 
 # Add configuration
-ADD files/php-fpm.conf /etc/php/php-fpm.conf
+ADD files/php-fpm.conf /etc/php5/php-fpm.conf
 ADD files/php-fpm.sh /scripts/pre-run/01_php-fpm
 ADD files/hiawatha-php.conf /etc/hiawatha/conf.d/php.conf
 
